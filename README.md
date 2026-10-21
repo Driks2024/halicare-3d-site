@@ -1,19 +1,22 @@
 # Halicare 3D Site
 
-Premium interactive website for **Halicare** (enxaguante antisséptico bucal à base de oxigênio) built with:
+Premium interactive website for **Halicare** (enxaguante antisséptico bucal à base de oxigênio).
 
-- **React 19** + **Vite**
+## Stack
+
+- **React 19** + **Vite 6** + TypeScript
 - **React Three Fiber** + **Three.js** (WebGL)
 - **@react-three/drei**
-- **GSAP** + ScrollTrigger (parallax & entrance animations)
-- Soft mint product palette + frescor (bubbles + vapor feel)
+- **GSAP** + ScrollTrigger (parallax & reveals)
+- Soft mint product palette + frescor (bubbles + vapor)
 
 ## Features
 
-- 3D floating product with mouse parallax
-- Instanced oxygen bubble particles (WebGL)
-- GSAP scroll parallax on hero text
-- Glassmorphism navigation & section cards
+- 3D floating Halicare bottle with mouse parallax tilt
+- Instanced WebGL oxygen bubbles + soft vapor particles
+- Scroll-linked camera parallax (R3F `useFrame`)
+- GSAP hero entrance + scroll parallax on text
+- Glassmorphism nav, cards and CTA
 - Fully responsive
 
 ## Quick start
@@ -34,8 +37,12 @@ npm run preview
 
 ## Deploy
 
-Connect this repo to Netlify / Vercel. Build command: `npm run build` · Publish dir: `dist`
+Connect this repo to **Netlify** or **Vercel**:
+
+- Build command: `npm run build`
+- Publish directory: `dist`
 
 ---
 
-Campanha “Toque de Frescor” · Odomed / Halicare
+Campanha **“Toque de Frescor”** · Odomed / Halicare  
+Cores: mint do rótulo · navy · vapor · bolhas de oxigênio
