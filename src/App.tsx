@@ -1,4 +1,4 @@
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useRef } from 'react'
 import { Canvas } from '@react-three/fiber'
 import { Environment, PerspectiveCamera } from '@react-three/drei'
 import gsap from 'gsap'
@@ -10,40 +10,69 @@ import './App.css'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function App() {
+  const containerRef = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
     gsap.fromTo(
       '.hero-content > *',
-      { y: 40, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1.2, stagger: 0.12, ease: 'power3.out', delay: 0.35 }
+      { y: 36, opacity: 0, filter: 'blur(8px)' },
+      {
+        y: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.35,
+        stagger: 0.1,
+        ease: 'power3.out',
+        delay: 0.35,
+      }
     )
+
     gsap.fromTo(
       '.nav',
-      { y: -24, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, ease: 'power3.out', delay: 0.1 }
+      { y: -24, opacity: 0, filter: 'blur(12px)' },
+      {
+        y: 0,
+        opacity: 1,
+        filter: 'blur(0px)',
+        duration: 1.1,
+        ease: 'power3.out',
+        delay: 0.1,
+      }
+    )
+
+    gsap.fromTo(
+      '.glass-orb',
+      { scale: 0.8, opacity: 0 },
+      { scale: 1, opacity: 1, duration: 1.6, stagger: 0.15, ease: 'power2.out', delay: 0.5 }
     )
   }, [])
 
   return (
-    <div className="app">
+    <div className="app" ref={containerRef}>
       <div className="canvas-wrapper">
-        <Canvas
-          dpr={[1, 1.75]}
-          gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-          style={{ background: 'transparent' }}
-        >
-          <PerspectiveCamera makeDefault position={[0, 0.2, 6.2]} fov={40} />
-          <color attach="background" args={['#d8f0e8']} />
-          <fog attach="fog" args={['#d8f0e8', 9, 20]} />
+        <Canvas dpr={[1, 1.75]} gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}>
+          <PerspectiveCamera makeDefault position={[0, 0, 6]} fov={42} />
+          <color attach="background" args={['#d4ebe3']} />
+          {/* Soft depth fog = blur atmosphere */}
+          <fog attach="fog" args={['#d4ebe3', 5.5, 14]} />
           <ambientLight intensity={0.75} />
-          <directionalLight position={[5, 6, 4]} intensity={1.35} color="#ffffff" castShadow />
-          <directionalLight position={[-4, 3, -2]} intensity={0.45} color="#a8e6d0" />
-          <pointLight position={[2, 1, 3]} intensity={0.4} color="#e8fff6" />
+          <directionalLight position={[5, 5, 5]} intensity={1.15} color="#ffffff" />
+          <directionalLight position={[-3, 2, -2]} intensity={0.45} color="#a8e6d0" />
           <Suspense fallback={null}>
             <Scene />
-            <Environment preset="city" environmentIntensity={0.35} />
+            <Environment preset="city" environmentIntensity={0.55} />
           </Suspense>
         </Canvas>
       </div>
+
+      {/* Soft blur veil over WebGL for premium soft-focus */}
+      <div className="canvas-veil" aria-hidden />
+
+      {/* Decorative frosted orbs */}
+      <div className="glass-orb a" aria-hidden />
+      <div className="glass-orb b" aria-hidden />
+      <div className="glass-orb c" aria-hidden />
+
       <UI />
     </div>
   )

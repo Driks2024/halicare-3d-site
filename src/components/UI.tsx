@@ -5,158 +5,113 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 gsap.registerPlugin(ScrollTrigger)
 
 export default function UI() {
-  const cardsRef = useRef<HTMLDivElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
+  const heroRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    // Parallax hero text on scroll
     gsap.to('.hero-content', {
-      y: -80,
+      y: -70,
       ease: 'none',
       scrollTrigger: {
         trigger: '.hero',
         start: 'top top',
         end: 'bottom top',
-        scrub: 1.2,
+        scrub: 1.4,
       },
     })
 
-    // Cards reveal
-    if (cardsRef.current) {
+    gsap.utils.toArray<HTMLElement>('.section-card').forEach((card) => {
       gsap.fromTo(
-        cardsRef.current.querySelectorAll('.card'),
-        { y: 60, opacity: 0 },
+        card,
+        { y: 50, opacity: 0, filter: 'blur(12px)' },
         {
           y: 0,
           opacity: 1,
-          duration: 0.9,
-          stagger: 0.12,
+          filter: 'blur(0px)',
+          duration: 1.15,
           ease: 'power3.out',
           scrollTrigger: {
-            trigger: cardsRef.current,
-            start: 'top 80%',
+            trigger: card,
+            start: 'top 88%',
           },
         }
       )
-    }
-
-    // CTA band
-    if (ctaRef.current) {
-      gsap.fromTo(
-        ctaRef.current,
-        { y: 50, opacity: 0, scale: 0.97 },
-        {
-          y: 0,
-          opacity: 1,
-          scale: 1,
-          duration: 1,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: ctaRef.current,
-            start: 'top 85%',
-          },
-        }
-      )
-    }
-
-    return () => {
-      ScrollTrigger.getAll().forEach((t) => t.kill())
-    }
+    })
   }, [])
 
   return (
-    <div className="ui-layer">
-      {/* NAV */}
+    <>
       <nav className="nav">
-        <div className="nav-logo">Halicare</div>
+        <div className="logo">Halicare</div>
         <ul className="nav-links">
           <li><a href="#produto">Produto</a></li>
           <li><a href="#beneficios">Benefícios</a></li>
           <li><a href="#ciencia">Ciência</a></li>
           <li><a href="#comprar">Comprar</a></li>
         </ul>
-        <a href="#comprar" className="nav-cta">Experimente</a>
       </nav>
 
-      {/* HERO */}
-      <section className="hero" id="produto">
+      <section className="hero" ref={heroRef}>
         <div className="hero-content">
-          <div className="hero-badge">
-            <span>✦</span> À base de oxigênio
-          </div>
-          <h1>
-            Toque de
-            <span>Frescor</span>
-          </h1>
-          <p className="hero-sub">
-            O poder do oxigênio contra o mau hálito.  
-            Enxaguante antisséptico com forte ação bactericida.
-          </p>
-          <p className="hero-claims">
-            Sem álcool · Sem flúor · Sem açúcar · Ingredientes naturais
-          </p>
-          <div className="hero-actions">
-            <a href="#comprar" className="btn-primary">Experimente o frescor</a>
-            <a href="#beneficios" className="btn-ghost">Ver benefícios</a>
+          <span className="badge">À base de oxigênio</span>
+          <h1>Toque de Frescor</h1>
+          <p className="subtitle">O poder do oxigênio contra o mau hálito</p>
+          <p className="claims">Sem álcool · Sem flúor · Ingredientes naturais · 300 ml</p>
+          <div>
+            <button className="cta">Experimente o frescor</button>
+            <button className="cta secondary">Saiba mais</button>
           </div>
         </div>
       </section>
 
-      <div className="spacer" />
+      <section className="section" id="produto">
+        <div className="section-card">
+          <span className="badge">Produto</span>
+          <h2>Halicare</h2>
+          <p>
+            Enxaguante antisséptico bucal com forte ação bactericida à base de oxigênio.
+            Combate e previne gengivite, mau hálito, cárie, placa bacteriana e ressecamento bucal.
+            Toque de frescor que dura.
+          </p>
+        </div>
+      </section>
 
-      {/* BENEFITS */}
       <section className="section" id="beneficios">
-        <h2 className="section-title">Frescor que dura</h2>
-        <p className="section-sub">
-          Tecnologia à base de oxigênio que elimina compostos sulfurados e protege sua boca por horas.
-        </p>
-        <div className="cards" ref={cardsRef}>
-          <div className="card">
-            <div className="card-icon">💨</div>
-            <h3>Oxigênio ativo</h3>
-            <p>
-              Fórmula com dióxido de cloro estabilizado — ação bactericida que libera oxigênio e combate o mau hálito na raiz.
-            </p>
-          </div>
-          <div className="card">
-            <div className="card-icon">🧊</div>
-            <h3>Toque de Frescor</h3>
-            <p>
-              Sensação imediata de limpeza e frescor mentolado, sem ressecar a mucosa. Ideal para uso diário.
-            </p>
-          </div>
-          <div className="card">
-            <div className="card-icon">🛡️</div>
-            <h3>Proteção completa</h3>
-            <p>
-              Combate e previne gengivite, cárie, placa bacteriana e ressecamento bucal. Efeito prolongado até 8h.
-            </p>
-          </div>
-          <div className="card">
-            <div className="card-icon">🌿</div>
-            <h3>Fórmula limpa</h3>
-            <p>
-              Isento de álcool, açúcar, flúor e corantes. Não mancha os dentes e não altera o paladar.
-            </p>
-          </div>
+        <div className="section-card">
+          <span className="badge">Benefícios</span>
+          <h2>Frescor que se respira</h2>
+          <p>
+            Fórmula isenta de álcool, açúcar, flúor e corantes. Proteção prolongada e
+            sensação de limpeza sem ressecar a mucosa. Ideal para uso diário e
+            confiança em cada sorriso.
+          </p>
         </div>
       </section>
 
-      {/* SCIENCE CTA */}
-      <div className="cta-band" id="ciencia" ref={ctaRef}>
-        <h2>Ciência a serviço do seu sorriso</h2>
-        <p>
-          Halicare Odomed — 300 ml · Nova embalagem · Uso diário seguro
-        </p>
-        <a href="#comprar" className="btn-primary" id="comprar">
-          Comprar agora
-        </a>
-      </div>
+      <section className="section" id="ciencia">
+        <div className="section-card">
+          <span className="badge">Ciência</span>
+          <h2>Oxigênio ativo</h2>
+          <p>
+            Tecnologia à base de dióxido de cloro estabilizado (oxigênio ativo) que
+            elimina compostos sulfurados voláteis responsáveis pelo mau hálito,
+            com ação bactericida seletiva e segura.
+          </p>
+        </div>
+      </section>
 
-      <footer className="footer">
-        <span>© {new Date().getFullYear()} Halicare · Odomed</span>
-        <span>Toque de Frescor · À base de oxigênio</span>
+      <section className="section" id="comprar" style={{ minHeight: '60vh' }}>
+        <div className="section-card" style={{ textAlign: 'center' }}>
+          <h2>Respire confiança</h2>
+          <p style={{ marginBottom: '1.5rem' }}>
+            Pronto para o toque de frescor?
+          </p>
+          <button className="cta">Comprar agora</button>
+        </div>
+      </section>
+
+      <footer>
+        © 2026 Halicare · Odomed · Campanha “Toque de Frescor”
       </footer>
-    </div>
+    </>
   )
 }

@@ -1,48 +1,31 @@
-# Halicare 3D Site
+# Halicare 3D Site — Odomed
 
-Premium interactive website for **Halicare** (enxaguante antisséptico bucal à base de oxigênio).
+Premium interactive landing for **Halicare** (Odomed), designed for Codex multi-site stack.
 
 ## Stack
+- React 19 + Vite
+- React Three Fiber + Three.js (WebGL)
+- @react-three/drei
+- GSAP + ScrollTrigger (parallax + blur entrance)
 
-- **React 19** + **Vite 6** + TypeScript
-- **React Three Fiber** + **Three.js** (WebGL)
-- **@react-three/drei**
-- **GSAP** + ScrollTrigger (parallax & reveals)
-- Soft mint product palette + frescor (bubbles + vapor)
-
-## Features
-
-- 3D floating Halicare bottle with mouse parallax tilt
-- Instanced WebGL oxygen bubbles + soft vapor particles
-- Scroll-linked camera parallax (R3F `useFrame`)
-- GSAP hero entrance + scroll parallax on text
-- Glassmorphism nav, cards and CTA
-- Fully responsive
+## Visual language (refine)
+- **Heavy glassmorphism** — nav, hero panel, section cards (`backdrop-filter: blur(40–56px)`)
+- Soft **canvas veil** + fog depth for soft-focus WebGL
+- Frosted **glass orbs** ambient layers
+- Mint product palette + oxygen bubbles
+- GSAP blur-to-sharp entrance on copy & cards
 
 ## Quick start
-
 ```bash
 npm install
 npm run dev
 ```
 
-Open http://localhost:5173
-
-## Build
-
+## Build / deploy
 ```bash
 npm run build
-npm run preview
 ```
-
-## Deploy
-
-Connect this repo to **Netlify** or **Vercel**:
-
-- Build command: `npm run build`
-- Publish directory: `dist`
+Publish `dist` (Netlify / Vercel).
 
 ---
-
-Campanha **“Toque de Frescor”** · Odomed / Halicare  
-Cores: mint do rótulo · navy · vapor · bolhas de oxigênio
+Campanha “Toque de Frescor” · Odomed / Halicare
