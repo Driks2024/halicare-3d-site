@@ -60,7 +60,7 @@ export default function App() {
           <directionalLight position={[-3, 2, -2]} intensity={0.45} color="#a8e6d0" />
           <Suspense fallback={null}>
             <Scene />
-            <Environment preset="city" environmentIntensity={0.55} />
+            <Environment preset="city" />
           </Suspense>
         </Canvas>
       </div>
